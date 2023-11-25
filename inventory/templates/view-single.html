@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+
+  {% block content %}
+
+  <main>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+
+        <div class="card mb-3  shadow-sm">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://source.unsplash.com/500x400/?product {{ product.name }}/" class="img-fluid rounded-start">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.name|upper }}</h5>
+                  <p class="card-text">{{ product.description }}</p>
+                  <p class="card-text"><small class="text-body-secondary">Created At: {{ inventory.created_at }} <br> Product Stocks: {{ stock.units }} <br> Category: {{ product.category.all|join:", "|capfirst }}</small></p>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <a href="{% url 'all_products' %}">Back to List</a>
+
+      </div>
+    </div>
+  </main>
+
+  {% endblock %}
