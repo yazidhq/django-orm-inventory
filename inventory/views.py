@@ -39,3 +39,8 @@ def edit(request, slug):
         'product': current_record,
     }
     return render(request, 'edit-item.html', data)
+
+def delete(request, slug):
+    Product.objects.get(slug=slug).delete()
+    messages.success(request, "Product Deleted Succesfully..")
+    return redirect('all_products')
