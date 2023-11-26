@@ -11,7 +11,7 @@
         <div class="card mb-3  shadow-sm">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="https://source.unsplash.com/500x650/?product {{ product.name }}/" class="img-fluid rounded-start">
+                <img src="https://source.unsplash.com/500x700/?product {{ product.name }}/" class="img-fluid rounded-start">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -21,15 +21,16 @@
                         {{ form.as_p }}
 
                         Recent Categories: {{ product.category.all|join:", " }}
-                        <div class="mb-3"></div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="my-3">
+                            <button type="submit" class="btn rounded-0 btn-primary">Submit Edit</button>
                         </div>
                     </form>
                 </div>
               </div>
             </div>
-            <a href="{% url 'all_products' %}">Back to List</a>
-        </div>
+          </div>
+
+          <a href="{% url 'all_products' %}">Back to List</a>
     
       </div>
     </div>
