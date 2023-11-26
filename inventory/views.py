@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, Inventory, StockControl
 from django.core.paginator import Paginator
+from django.contrib import messages
+from .forms import EditProduct
 
 def all_products(request):
     objs = Product.objects.all()
@@ -11,16 +13,29 @@ def all_products(request):
 
 
 def view(request, slug):
-    single_product = Product.objects.get(slug=slug)
-    inventory_product = Inventory.objects.get(product__slug=slug)
-    stock_product = StockControl.objects.get(inventory__product__slug=slug)
     data = {
-        'product':single_product, 
-        'inventory':inventory_product,
-        'stock':stock_product,
+        'product':Product.objects.get(slug=slug), 
+        'inventory':Inventory.objects.get(product__slug=slug),
+        'stock':StockControl.objects.get(inventory__product__slug=slug),
     }
     return render(request, 'view-single.html', data)
 
 
 def edit(request, slug):
-    return render(request, 'edit-item.html')
+    current_record = Product.objects.get(slug=slug)
+    if request.method == 'POST':
+        form = EditProduct(request.POST, instance=current_record)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Product Successfully Updated...")
+            return redirect('all_products')
+        else:
+            messages.error(request, "Product Unsuccessfully Updated...")
+            return redirect('all_products')
+    else:
+        form = EditProduct(instance=current_record)
+    data = {
+        'form': form,
+        'product': current_record,
+    }
+    return render(request, 'edit-item.html', data)
