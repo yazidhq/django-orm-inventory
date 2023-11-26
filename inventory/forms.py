@@ -2,7 +2,7 @@ from django import forms
 from django.utils.text import slugify
 from .models import Product
 
-class EditProduct(forms.ModelForm):
+class FormProduct(forms.ModelForm):
     name = forms.CharField(
         label="Product Name",
         required=False,
@@ -37,6 +37,7 @@ class EditProduct(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'readonly': 'readonly',
+                'placeholder':'Automatic Fill'
             }
         ),
         label_suffix='',

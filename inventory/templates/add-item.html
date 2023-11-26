@@ -6,23 +6,19 @@
     <div class="album py-5 bg-body-tertiary">
       <div class="container">
 
-        <h1 class="text-center mb-3"><strong>{{ product.name|upper }}</strong></h1>
+        <h1 class="text-center mb-3"><strong>Add New Product</strong></h1>
 
         <div class="card mb-3  shadow-sm">
             <div class="row g-0">
-              <div class="col-md-4">
-                <img src="https://source.unsplash.com/500x700/?product {{ product.name }}/" class="img-fluid rounded-start">
-              </div>
-              <div class="col-md-8">
+              <div class="col-md-12">
                 <div class="card-body">
-                    <form method="POST" action="{% url 'edit' product.slug %}">
+                    <form method="POST" action="{% url 'add' %}">
                         {% csrf_token %}
 
                         {{ form.as_p }}
 
-                        Recent Categories: {{ product.category.all|join:", " }}
                         <div class="my-3">
-                            <button type="submit" class="btn rounded-0 btn-primary">Submit Edit</button>
+                            <button type="submit" class="btn rounded-0 btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>

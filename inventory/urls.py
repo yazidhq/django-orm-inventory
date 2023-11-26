@@ -6,4 +6,5 @@ urlpatterns = [
     path('view/<str:slug>', views.view, name="view"),
     path('edit/<str:slug>', views.edit, name="edit"),
     path('delete/<str:slug>', views.delete, name="delete"),
+    path('add/', views.add, name="add"),
 ]
