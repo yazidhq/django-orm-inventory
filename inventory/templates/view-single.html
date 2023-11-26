@@ -6,6 +6,13 @@
     <div class="album py-5 bg-body-tertiary">
       <div class="container">
 
+        {% if error %}
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <div>
+            {{ error }}
+          </div>
+        </div>        
+        {% else %}
         <div class="card mb-3  shadow-sm">
             <div class="row g-0">
               <div class="col-md-4">
@@ -20,6 +27,7 @@
               </div>
             </div>
         </div>
+        {% endif %}
         
         <a href="{% url 'all_products' %}">Back to List</a>
 

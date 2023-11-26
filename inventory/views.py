@@ -13,11 +13,16 @@ def all_products(request):
 
 
 def view(request, slug):
-    data = {
-        'product':Product.objects.get(slug=slug), 
-        'inventory':Inventory.objects.get(product__slug=slug),
-        'stock':StockControl.objects.get(inventory__product__slug=slug),
-    }
+    try:
+        data = {
+            'product':Product.objects.get(slug=slug), 
+            'inventory':Inventory.objects.get(product__slug=slug),
+            'stock':StockControl.objects.get(inventory__product__slug=slug),
+        }
+    except:
+        data = {
+            'error':'Create an inventory for this product first.'
+        }
     return render(request, 'view-single.html', data)
 
 
