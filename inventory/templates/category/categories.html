@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+
+  {% block content %}
+    <main>
+      <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <h1 class="text-center"><strong>Categories</strong></h1>
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{message}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+          {% endif %}
+          <a href="{% url 'add_category' %}" class="btn btn-secondary rounded-0">Add Category</a>
+          <p></p>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+            
+            {% if categories %}
+                {% for category in categories %}
+                <button class="btn btn-sm btn-outline-secondary">{{ category }}</button>
+                {% endfor %}
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </main>
+  {% endblock %}

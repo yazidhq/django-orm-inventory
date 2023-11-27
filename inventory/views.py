@@ -1,10 +1,34 @@
 from django.shortcuts import render, redirect
-from .models import Product, Inventory, StockControl
+from .models import Product, Inventory, StockControl, Category
 from django.core.paginator import Paginator
 from django.contrib import messages
-from .forms import FormProduct
+from .forms import FormProduct, FormCategory
 
-def all_products(request):
+
+# category
+def category(request):
+    cats = Category.objects.all().order_by('-id')
+    return render(request, 'category/categories.html', {'categories':cats})
+
+
+def add_category(request):
+    if request.method == 'POST':
+        form = FormCategory(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Category Successfully Added...")
+            return redirect('category')
+        else:
+            messages.error(request, "Category Unsuccessfully Added...")
+            return redirect('category')
+    else:
+        form = FormCategory()
+    return render(request, 'category/add-category.html', {'form':form})
+# category
+
+
+# Product
+def products(request):
     objs = Product.objects.all().order_by('-id')
     paginator = Paginator(objs, 8)
     page_number = request.GET.get('page')
@@ -21,7 +45,7 @@ def view(request, slug):
         }
     except:
         data = {
-            'error':'Create an inventory for this product first.'
+            'error':'Inventory for this product has not been created yet.'
         }
     return render(request, 'view-single.html', data)
 
@@ -33,10 +57,10 @@ def edit(request, slug):
         if form.is_valid():
             form.save()
             messages.success(request, "Product Successfully Updated...")
-            return redirect('all_products')
+            return redirect('products')
         else:
             messages.error(request, "Product Unsuccessfully Updated...")
-            return redirect('all_products')
+            return redirect('products')
     else:
         form = FormProduct(instance=current_record)
     data = {
@@ -49,7 +73,7 @@ def edit(request, slug):
 def delete(request, slug):
     Product.objects.get(slug=slug).delete()
     messages.success(request, "Product Deleted Succesfully..")
-    return redirect('all_products')
+    return redirect('products')
 
 
 def add(request):
@@ -58,13 +82,14 @@ def add(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Product Successfully Added...")
-            return redirect('all_products')
+            return redirect('products')
         else:
             messages.error(request, "Product Unsuccessfully Addedd...")
-            return redirect('all_products')
+            return redirect('products')
     else:
         form = FormProduct()
     data = {
         'form': form,
     }
     return render(request, 'add-item.html', data)
+# Product
