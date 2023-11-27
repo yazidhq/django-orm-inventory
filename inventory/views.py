@@ -5,6 +5,11 @@ from django.contrib import messages
 from .forms import FormProduct, FormCategory
 
 
+# dashboard
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+
 # category
 def category(request):
     cats = Category.objects.all().order_by('-id')
@@ -24,6 +29,32 @@ def add_category(request):
     else:
         form = FormCategory()
     return render(request, 'category/add-category.html', {'form':form})
+
+
+def delete_category(request, slug):
+    Category.objects.get(slug=slug).delete()
+    messages.success(request, "Category Deleted Succesfully...")
+    return redirect('category')
+
+
+def edit_category(request, slug):
+    current_record = Category.objects.get(slug=slug)
+    if request.method == 'POST':
+        form = FormCategory(request.POST, instance=current_record)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Category Successfully Deleted...')
+            return redirect('category')
+        else:
+            messages.success(request, 'Category Unsuccessfully Deleted...')
+            return redirect('category')
+    else:
+        form = FormCategory(instance=current_record)
+    data = {
+        'form': form,
+        'category': current_record,
+    }
+    return render(request, 'category/edit-category.html', data)
 # category
 
 
@@ -33,7 +64,7 @@ def products(request):
     paginator = Paginator(objs, 8)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'grid-output.html', {'page_obj':page_obj})
+    return render(request, 'product/grid-output.html', {'page_obj':page_obj})
 
 
 def view(request, slug):
@@ -47,7 +78,7 @@ def view(request, slug):
         data = {
             'error':'Inventory for this product has not been created yet.'
         }
-    return render(request, 'view-single.html', data)
+    return render(request, 'product/view-single.html', data)
 
 
 def edit(request, slug):
@@ -67,7 +98,7 @@ def edit(request, slug):
         'form': form,
         'product': current_record,
     }
-    return render(request, 'edit-item.html', data)
+    return render(request, 'product/edit-item.html', data)
 
 
 def delete(request, slug):
@@ -91,5 +122,5 @@ def add(request):
     data = {
         'form': form,
     }
-    return render(request, 'add-item.html', data)
+    return render(request, 'product/add-item.html', data)
 # Product

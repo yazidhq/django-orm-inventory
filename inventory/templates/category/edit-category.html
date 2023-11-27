@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+  {% block content %}
+
+  <main>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+
+        <h1 class="text-center mb-3"><strong>{{ category.name|upper }}</strong></h1>
+
+        <div class="card mb-3  shadow-sm">
+            <div class="row g-0">
+              <div class="col-md-12">
+                <div class="card-body">
+                    <form method="POST" action="{% url 'edit_category' category.slug %}">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <div class="my-3">
+                            <button type="submit" class="btn rounded-0 btn-primary">Submit Edit</button>
+                            <a href="{% url 'delete_category' category.slug %}" class="btn btn-danger rounded-0 delete-btn">Delete Category</a>
+                            <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                            // Menggunakan class delete-btn sebagai selector
+                            var deleteButtons = document.querySelectorAll('.delete-btn');
+                            deleteButtons.forEach(function (button) {
+                                button.addEventListener('click', function (event) {
+                                    event.preventDefault();
+                                    Swal.fire({
+                                    title: 'Are you sure?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d33',
+                                    cancelButtonColor: '#3085d6',
+                                    confirmButtonText: 'Yes, Delete It!'
+                                    }).then((result) => {
+                                    // Jika pengguna menekan "Ya"
+                                    if (result.isConfirmed) {
+                                        // Redirect ke URL penghapusan
+                                        window.location.href = button.getAttribute('href');
+                                    }
+                                    });
+                                });
+                            });
+                            });
+                            </script>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="{% url 'category' %}">Back to List</a>
+    
+      </div>
+    </div>
+  </main>
+
+  {% endblock %}

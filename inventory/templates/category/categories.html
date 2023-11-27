@@ -15,14 +15,14 @@
           {% endif %}
           <a href="{% url 'add_category' %}" class="btn btn-secondary rounded-0">Add Category</a>
           <p></p>
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
-            
+          <div class="row row-cols-6 g-3">
             {% if categories %}
                 {% for category in categories %}
-                <button class="btn btn-sm btn-outline-secondary">{{ category }}</button>
+                <div class="col-2"> 
+                        <a href="{% url 'edit_category' category.slug %}" class="btn btn-sm btn-outline-secondary" style="width: 100%">{{ category }}</a>
+                </div>
                 {% endfor %}
             {% endif %}
-
           </div>
         </div>
       </div>

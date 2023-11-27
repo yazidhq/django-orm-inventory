@@ -6,7 +6,7 @@ from .models import Product, Category
 class FormCategory(forms.ModelForm):
     name = forms.CharField(
         label="Product Name",
-        required=False,
+        required=True,
         max_length=100,
         widget=forms.TextInput(
             attrs={
