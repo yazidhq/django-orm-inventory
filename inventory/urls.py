@@ -17,4 +17,11 @@ urlpatterns = [
     path('edit/<str:slug>', views.edit, name="edit"),
     path('delete/<str:slug>', views.delete, name="delete"),
     path('add/', views.add, name="add"),
+
+    # ATTRIBUTES
+    path('attribute/', views.attribute, name="attribute"),
+    path('view_attribute/<int:id>', views.view_attribute, name="view_attribute"),
+    path('add_attribute/', views.add_attribute, name="add_attribute"),
+    path('add_attribute_value/', views.add_attribute_value, name="add_attribute_value"),
+    path('delete_attr/<int:id>', views.delete_attr, name="delete_attr"),
 ]

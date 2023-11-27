@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+  {% block content %}
+
+  <main>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+
+        <h1>Add Attribute</h1>
+
+        <form method="POST" action="{% url 'add_attribute' %}">
+            {% csrf_token %}
+
+            {{ formAttr.as_p }}
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <br>
+        <a href="{% url 'attribute' %}">Back to List</a>
+    
+      </div>
+    </div>
+  </main>
+
+  {% endblock %}

@@ -4,7 +4,7 @@
     <main>
       <div class="album py-5 bg-body-tertiary">
         <div class="container">
-          <h1 class="text-center"><strong>Categories</strong></h1>
+          <h1 class="text-center"><strong>Attribute</strong></h1>
           {% if messages %}
             {% for message in messages %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -13,17 +13,18 @@
             </div>
             {% endfor %}
           {% endif %}
-          <a href="{% url 'add_category' %}" class="btn btn-secondary rounded-0">Add Category</a>
+          <a href="{% url 'add_attribute' %}" class="btn btn-secondary rounded-0">Add Attribute</a>
+          <a href="{% url 'add_attribute_value' %}" class="btn btn-secondary rounded-0">Add Attribute Value</a>
           <p></p>
-          <div class="row row-cols-6 g-3">
-            {% if categories %}
-                {% for category in categories %}
+            <div class="row row-cols-6 g-3">
+            {% if attribute %}
+                {% for attr in attribute %}
                 <div class="col-2"> 
-                    <a href="{% url 'edit_category' category.slug %}" class="btn btn-sm btn-outline-secondary" style="width: 100%">{{ category }}</a>
+                    <a href="{% url 'view_attribute' attr.id %}" class="btn btn-sm btn-outline-secondary" style="width: 100%">{{ attr }}</a>
                 </div>
                 {% endfor %}
             {% endif %}
-          </div>
+            </div>
         </div>
       </div>
     </main>

@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.text import slugify
-from .models import Product, Category
+from .models import Product, Category, Attribute, AttributeValue
 
 
 class FormCategory(forms.ModelForm):
@@ -87,3 +87,14 @@ class FormProduct(forms.ModelForm):
     def clean_slug(self):
         name = self.cleaned_data['name']
         return slugify(name)
+    
+
+class FormAttr(forms.ModelForm):
+    class Meta:
+        model = Attribute
+        fields = ('name', 'description')
+
+class FormAttrValue(forms.ModelForm):
+    class Meta:
+        model = AttributeValue
+        fields = ('attribute', 'value')

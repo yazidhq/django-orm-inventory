@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+
+  {% block content %}
+
+  <main>
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+
+        <h1 class="text-center mb-3"><strong>{{ attribute.name|upper }}</strong></h1>
+        <p class="text-center">{{ attribute.description }}</p>
+
+        <div class="card mb-3 shadow-sm">
+            <div class="row g-0">
+              <div class="col-md-12">
+                <div class="card-body">
+                    {% for val in attr_values %}
+                        {{ val.value }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    <br><br>
+                    <a href="{% url 'delete_attr' attribute.id %}" class="btn btn-sm btn-danger delete-btn">Delete Attribute</a>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                        // Menggunakan class delete-btn sebagai selector
+                        var deleteButtons = document.querySelectorAll('.delete-btn');
+                        deleteButtons.forEach(function (button) {
+                          button.addEventListener('click', function (event) {
+                              event.preventDefault();
+                              Swal.fire({
+                                title: 'Are you sure?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#d33',
+                                cancelButtonColor: '#3085d6',
+                                confirmButtonText: 'Yes, Delete It!'
+                              }).then((result) => {
+                                // Jika pengguna menekan "Ya"
+                                if (result.isConfirmed) {
+                                    // Redirect ke URL penghapusan
+                                    window.location.href = button.getAttribute('href');
+                                }
+                              });
+                          });
+                        });
+                        });
+                    </script>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="{% url 'attribute' %}">Back to List</a>
+    
+      </div>
+    </div>
+  </main>
+
+  {% endblock %}
