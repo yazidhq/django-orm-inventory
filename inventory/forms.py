@@ -90,11 +90,49 @@ class FormProduct(forms.ModelForm):
     
 
 class FormAttr(forms.ModelForm):
+    name = forms.CharField(
+        label="Attribute Name",
+        required=True,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        ),
+        label_suffix='',
+    )
+
+    description = forms.CharField(
+        label="Description",
+        required=True,
+        max_length=100,
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'cols': 30,
+            }
+        ),
+        label_suffix='',
+    )
+
     class Meta:
         model = Attribute
         fields = ('name', 'description')
 
 class FormAttrValue(forms.ModelForm):
+    value = forms.CharField(
+        label="Attribute Value",
+        required=True,
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        ),
+        label_suffix='',
+    )
+
     class Meta:
         model = AttributeValue
         fields = ('attribute', 'value')

@@ -6,15 +6,22 @@
     <div class="album py-5 bg-body-tertiary">
       <div class="container">
 
-        <h1>Add Attribute Value</h1>
+        <h1 class="text-center my-3"><strong>Add Attribute Value</strong></h1>
+        <div class="card mb-3  shadow-sm">
+          <div class="row g-0">
+            <div class="col-md-12">
+              <div class="card-body">
+                <form method="POST" action="{% url 'add_attribute_value' %}">
+                    {% csrf_token %}
 
-        <form method="POST" action="{% url 'add_attribute_value' %}">
-            {% csrf_token %}
+                    {{ formAttrVal.as_p }}
 
-            {{ formAttrVal.as_p }}
-
-            <button type="submit">Submit Value</button>
-        </form>
+                    <button type="submit" class="btn btn-secondary rounded-0">Submit Value</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
     
         <br>
         <a href="{% url 'attribute' %}">Back to List</a>
